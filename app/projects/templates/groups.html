@@ -1,0 +1,155 @@
+{% extends "base_site.html" %}
+
+{% block title %} Groups {% endblock title %}
+
+{% block stylesheets %}
+  {{ super() }}
+  <link href="{{ url_for('static', filename='vendors/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css') }}" rel="stylesheet">
+{% endblock stylesheets %}
+
+{% block content %}
+  <div class="right_col" role="main">
+
+    <div class="row">
+    <div class="x_panel">
+            <div class="x_title">
+              <h3 style="color: #1ABB9C">Grupos Existentes</h3>
+              <ul class="nav navbar-right panel_toolbox">
+                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+              </ul>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="col-md-3 col-sm-3 col-xs-12 profile_details">
+                  <div class="well profile_view">
+                    <div class="col-sm-12">
+                      <div class="left col-xs-7">
+                        <h4><strong>Levantamiento Funza</strong></h4>
+                        <ul class="list-unstyled">
+                          <li><i class="fa fa-user"></i><strong> Miembros:</strong> 3
+                          <li><i class="fa fa-cog"></i><strong> Estado:</strong>  Activo
+                        </ul>
+                      </div>
+                      <div class="right col-xs-5 text-center">
+                        <img src="/static/images/user.png" alt="" class="img-circle img-responsive">
+                      </div>
+                    </div>
+                    <div class="col-xs-12 bottom text-center">
+                      <div class="col-xs-12 col-sm-12 emphasis">
+                          <button type="button" class="btn btn-success btn-xs"  data-toggle="modal" data-target=".bs-example-modal-sm"><i class="glyphicon glyphicon-plus">
+                          </i> Agregar Usuarios</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+      <div class="row">
+        <div class="col-md-12 col-xs-12">
+          <div class="x_panel">
+            <div class="x_title">
+              <h3 style="color: #1ABB9C">Crear Grupos <small></small></h3>
+              <ul class="nav navbar-right panel_toolbox">
+                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li> 
+              </ul>
+
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+              <form class="form-horizontal form-label-left input_mask">
+
+                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                  <label>* Nombre</label>
+                  <input type="text" class="form-control has-feedback-left" id="inputSuccess1" placeholder="Nombre">
+                  <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                </div>
+                
+                <div class="ln_solid"></div>
+                <div class="form-group">
+                  <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                    <button type="button" class="btn btn-default">Cancelar</button>
+                    <button type="submit" class="btn btn-success">Crear</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        <br />
+      </div>
+    </div>
+</div>
+<!-- Small modal -->
+            <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title" style="color: #1ABB9C" id="myModalLabel2">Lista Usuarios</h4>
+                  </div>
+                  <div class="modal-body" >
+                    <div class="new">
+              <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action">
+                <thead>
+                  <tr>
+                      <th><input type="checkbox" id="check-all" class="flat"></th>
+                    <th>Nombres y Apellidos</th>
+                    <th>Email</th>
+                    <th>Estado</th>
+                  </tr>
+                </thead>
+                <tr>
+                    <th><input type="checkbox" id="check-all" class="flat"></th>
+                  <td>Adriana Leidy Martínez Beltrán</td>
+                  <td>adriana.martinez@geostudio.com.co</td>
+                  <td>Activo</td>
+                </tr>
+              </table>
+            </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-success">Agregar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /modals -->
+
+            
+          </div>
+        </div>
+      </div>
+
+{% endblock content %}
+
+{% block javascripts %}
+  {{ super()}}
+  <!-- Chart.js -->
+  <script src="{{ url_for('static', filename='vendors/Chart.js/dist/Chart.min.js') }}"></script>
+  <!-- gauge.js -->
+  <script src="{{ url_for('static', filename='vendors/gauge.js/dist/gauge.min.js') }}"></script>
+  <!-- Skycons -->
+  <script src="{{ url_for('static', filename='vendors/skycons/skycons.js') }}"></script>
+  <!-- Flot -->
+  <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.pie.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.time.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.stack.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.resize.js') }}"></script>
+  <!-- Flot plugins -->
+  <script src="{{ url_for('static', filename='vendors/flot.orderbars/js/jquery.flot.orderBars.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/flot-spline/js/jquery.flot.spline.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/flot.curvedlines/curvedLines.js') }}"></script>
+  <!-- DateJS -->
+  <script src="{{ url_for('static', filename='vendors/DateJS/build/date.js') }}"></script>
+  <!-- JQVMap -->
+  <script src="{{ url_for('static', filename='vendors/jqvmap/dist/jquery.vmap.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/jqvmap/dist/maps/jquery.vmap.world.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/jqvmap/examples/js/jquery.vmap.sampledata.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
+{% endblock javascripts %}

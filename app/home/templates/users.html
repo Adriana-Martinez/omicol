@@ -1,0 +1,338 @@
+{% extends "base_site.html" %}
+
+{% block title %} Users {% endblock title %}
+
+{% block stylesheets %}
+  {{ super() }}
+  <link href="{{ url_for('static', filename='vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css') }}" rel="stylesheet">
+{% endblock stylesheets %}
+
+{% block content %}
+  <div class="right_col" role="main">
+
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+          <div class="x_panel">
+            <div class="x_title">
+              <h3 style="color: #1ABB9C">Lista de Usuarios</small></h3>
+              <ul class="nav navbar-right panel_toolbox">
+                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+              </ul>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+              <!--<p class="text-muted font-13 m-b-30">
+                DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction function: <code>$().DataTable();</code>
+              </p>-->
+              <div class="table-responsive">
+              <table  id="list_user" class="table table-striped table-bordered bulk_action">
+                <thead>
+                  <tr>
+                    <th scope="col" class="col-md-4 col-xs-12">Nombre</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Rol</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for id in list_user %}
+                  <tr id= "{{ id.id }}" > 
+                  <td >{{id.nombre + ' ' + id.apellido}} </td>
+                  <td>{{id.email}} </td>
+                  <td>{{id.rol}} </td>
+                  <td>{{id.status }} </td>
+                  <td>
+                    &nbsp;&nbsp;
+                    &nbsp;&nbsp;
+                    &nbsp;&nbsp;
+                    &nbsp;&nbsp;
+                    <a href="" data-toggle="modal" data-target="#update-user{{ id.id }}" url_kwargs=dict(id=id))><span class="fa fa-edit" style="color:#1ABB9C" data-toggle="tooltip" title="Editar"></span></a>
+                    &nbsp;&nbsp;
+                    <a href=".example-modal-sm" data-toggle="modal"><span class="fa fa-users" data-toggle="tooltip" title="Agregar a Grupo"></span></a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+              </table>
+            </div>
+<!-- Small modal -->
+            <div class="modal fade example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title" style="color: #1ABB9C" id="myModalLabel2">Lista de Grupos</h4>
+                  </div>
+                  <div class="modal-body" >
+                    <div class="new">
+             <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action">
+                <thead>
+                  <tr>
+                    <th>
+                      <th><input type="checkbox" id="check-all" class="flat"></th>
+                    </th>
+                    <th>Nombre</th>
+                  </tr>
+                </thead>
+                <tr>
+                  <td>
+                    <th><input type="checkbox" id="check-all" class="flat"></th>
+                  </td>
+                  <td>Levantamiento Funza</td>
+                </tr>
+              </table>
+            </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-success">Agregar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /modals -->
+            {% for id in list_user %}
+            <!-- modal update-user-->
+              <div class="modal fade update-user" id="update-user{{ id.id }}" tabindex="-1" role="dialog" aria-hidden="true" method= "get">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title" style="color: #1ABB9C" id="myModalLabel2">Datos usuario</h4>
+                  </div>
+                  <div class="modal-body" >
+                    <div class="new">
+              <form class="form-horizontal form-label-left input_mask" action="" method="post">
+
+                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                  <label>* Nombres</label>
+                  {{ create_user_form.nombre(type="text",class="form-control has-feedback-left",id="{{ inputName }}",placeholder="Nombres") }}
+                  <span class="fa fa-user form-control-feedback left" aria-hidden="true" style="color: #1ABB9C"></span>
+                </div>
+
+                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                  <label>* Apellidos</label>
+                  {{ create_user_form.apellido(type="text",class="form-control has-feedback-left",id="{{ nombre.email }}",placeholder="Apellidos") }}
+                  <span class="fa fa-user form-control-feedback left" aria-hidden="true" style="color: #1ABB9C"></span>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+                  <label>* Tipo Documento</label>
+                  {{ create_user_form.tipoDocumento(type="text",class="form-control has-feedback-left",placeholder="Seleccionar") }}
+                  <span class="fa fa-filter form-control-feedback left" aria-hidden="true" style="color: #1ABB9C"></span>
+                </div>
+
+                <div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+                  <label>* Número Documento</label>
+                  {{ create_user_form.documento(type="text",class="form-control has-feedback-left", placeholder="Número Documento") }}
+                  <span class="fa fa-user form-control-feedback left" aria-hidden="true" style="color: #1ABB9C"></span>
+                </div>
+
+                <div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback" >
+                  <label>* Fecha Nacimiento</label>
+                    {{ create_user_form.fechaNacimiento(type="Date",class="form-control has-feedback-left",placeholder="Fecha Nacimiento") }}
+                    <span class="glyphicon glyphicon-calendar form-control-feedback left" style="color: #1ABB9C"></span>
+                </div>
+
+
+                <div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+                  <label>* Correo Electrónico</label>
+                  {{ create_user_form.email(type="text",class="form-control has-feedback-left",placeholder="Email") }}
+                  <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"style="color: #1ABB9C"></span>
+                </div>
+
+                <div class="form-controll"></div>
+
+                <div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+                  <label>* Teléfono</label>
+                  {{ create_user_form.telefono(type="text",class="form-control has-feedback-left",placeholder="Teléfono") }}
+                  <span class="fa fa-phone form-control-feedback left" aria-hidden="true" style="color: #1ABB9C"></span>
+                </div>
+
+                <div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+                  <label>* Rol</label>
+                   {{ create_user_form.rol(type="text",class="form-control has-feedback-left",placeholder="Seleccionar") }}
+                  <span class="fa fa-filter form-control-feedback left" aria-hidden="true" style="color: #1ABB9C"></span>
+                </div>
+
+                <div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+                  <label>* Estado</label>
+                   {{ create_user_form.status(type="text",class="form-control has-feedback-left",placeholder="Seleccionar") }}
+                  <span class="fa fa-filter form-control-feedback left" aria-hidden="true" style="color: #1ABB9C"></span>
+                </div>
+
+                <div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+                  <label>* Usuario</label>
+                   {{ create_user_form.username(type="text",class="form-control has-feedback-left",placeholder="Usario") }}
+                  <span class="fa fa-user form-control-feedback left" aria-hidden="true" style="color: #1ABB9C"></span>
+                </div>
+
+                <div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+                  <label>* Contraseña</label>
+                  {{ create_user_form.password(type="text",class="form-control has-feedback-left",placeholder="Contraseña") }}
+                  <span class="fa fa-key form-control-feedback left" aria-hidden="true" style="color: #1ABB9C"></span>
+                </div>
+
+                <div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+                  <label>* Confirmar Contraseña</label>
+                  {{ create_user_form.confirm(type="text",class="form-control has-feedback-left",placeholder="Confirmar Contraseña") }}
+                  <span class="fa fa-key form-control-feedback left" aria-hidden="true" style="color: #1ABB9C"></span>
+                </div>
+              </form>
+            </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-success">Actualizar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+     <!-- end modal update-user-->{% endfor %}
+          </div>
+          </div>
+        </div>
+      </div>
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+          <div class="x_panel">
+            <div class="x_title">
+              <h3 style="color: #1ABB9C">Crear Usuarios <small></small></h3>
+              <ul class="nav navbar-right panel_toolbox">
+                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+              </ul>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+              <br />
+              <form class="form-horizontal form-label-left input_mask" action="" method="post">
+
+                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                  <label>* Nombres</label>
+                  {{ create_user_form.nombre(type="text",class="form-control has-feedback-left",id="inputSuccess1",placeholder="Nombres") }}
+                  <span class="fa fa-user form-control-feedback left" aria-hidden="true" style="color: #1ABB9C"></span>
+                </div>
+
+                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                  <label>* Apellidos</label>
+                  {{ create_user_form.apellido(type="text",class="form-control has-feedback-left",id="inputSuccess1",placeholder="Apellidos") }}
+                  <span class="fa fa-user form-control-feedback left" aria-hidden="true" style="color: #1ABB9C"></span>
+                </div>
+
+                <div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+                  <label>* Tipo Documento</label>
+                  {{ create_user_form.tipoDocumento(type="text",class="form-control has-feedback-left",id="inputSuccess1",placeholder="Seleccionar") }}
+                  <span class="fa fa-filter form-control-feedback left" aria-hidden="true" style="color: #1ABB9C"></span>
+                </div>
+
+
+                <div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+                  <label>* Número Documento</label>
+                  {{ create_user_form.documento(type="number",class="form-control has-feedback-left",id="inputSuccess1",placeholder="Número Documento") }}
+                  <span class="fa fa-user form-control-feedback left" aria-hidden="true" style="color: #1ABB9C"></span>
+                </div>
+
+                <div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback" >
+                  <fieldset>
+                    <div class="control-group">
+                      <div class="controls">
+                          <label>* Fecha Nacimiento</label>
+                    {{ create_user_form.fechaNacimiento(type="text", class="form-control has-feedback-left",id="single_cal") }}
+                        <span class="glyphicon glyphicon-calendar form-control-feedback left" style="color: #1ABB9C" aria-hidden="true"></span>
+                        <span id="inputSuccess2Status3" class="sr-only">(success)</span>
+                        </div>
+                      </div>
+                  </fieldset> 
+                </div>
+
+                <div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+                  <label>* Correo Electrónico</label>
+                  {{ create_user_form.email(type="email",class="form-control has-feedback-left",id="inputSuccess1",placeholder="Email") }}
+                  <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"style="color: #1ABB9C"></span>
+                </div>
+
+                <div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+                  <label>* Teléfono</label>
+                  {{ create_user_form.telefono(type="number",class="form-control has-feedback-left",id="inputSuccess1",placeholder="Teléfono") }}
+                  <span class="fa fa-phone form-control-feedback left" aria-hidden="true" style="color: #1ABB9C"></span>
+                </div>
+
+                <div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+                  <label>* Rol</label>
+                   {{ create_user_form.rol(type="text",class="form-control has-feedback-left",placeholder="Seleccionar") }}
+                  <span class="fa fa-filter form-control-feedback left" aria-hidden="true" style="color: #1ABB9C"></span>
+                </div>
+
+                <div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+                  <label>* Estado</label>
+                   {{ create_user_form.status(type="text",class="form-control has-feedback-left",placeholder="Seleccionar") }}
+                  <span class="fa fa-filter form-control-feedback left" aria-hidden="true" style="color: #1ABB9C"></span>
+                </div>
+
+                <div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+                  <label>* Usuario</label>
+                   {{ create_user_form.username(type="text",class="form-control has-feedback-left",id="inputSuccess1",placeholder="Usuario") }}
+                  <span class="fa fa-user form-control-feedback left" aria-hidden="true" style="color: #1ABB9C"></span>
+                </div>
+
+                <div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+                  <label>* Contraseña</label>
+                  {{ create_user_form.password(type="password",class="form-control has-feedback-left",id="inputSuccess1",placeholder="Contraseña") }}
+                  <span class="fa fa-key form-control-feedback left" aria-hidden="true" style="color: #1ABB9C"></span>
+                </div>
+
+                <div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+                  <label>* Confirmar Contraseña</label>
+                  {{ create_user_form.confirm(type="password",class="form-control has-feedback-left",id="inputSuccess1",placeholder="Confirmar Contraseña") }}
+                  <span class="fa fa-key form-control-feedback left" aria-hidden="true" style="color: #1ABB9C"></span>
+                </div>
+                <div class="form-group">
+                  <div class="col-md-12 col-sm-12 col-xs-12 col-md-offset-3">
+                    <button type="button" class="btn btn" style="color: #b5b3b3">Cancelar</button>
+                    <button type="submit" class="btn btn-success" onclick="signup()">Crear</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        <br />
+      </div>
+    </div>
+  </div>
+{% endblock content %}
+
+{% block javascripts %}
+  {{ super()}}
+  <!-- Chart.js -->
+  <script src="{{ url_for('static', filename='vendors/Chart.js/dist/Chart.min.js') }}"></script>
+  <!-- gauge.js -->
+  <script src="{{ url_for('static', filename='vendors/gauge.js/dist/gauge.min.js') }}"></script>
+  <!-- Skycons -->
+  <script src="{{ url_for('static', filename='vendors/skycons/skycons.js') }}"></script>
+  <!-- Flot -->
+  <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.pie.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.time.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.stack.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.resize.js') }}"></script>
+  <!-- Flot plugins -->
+  <script src="{{ url_for('static', filename='vendors/flot.orderbars/js/jquery.flot.orderBars.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/flot-spline/js/jquery.flot.spline.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/flot.curvedlines/curvedLines.js') }}"></script>
+  <!-- DateJS -->
+  <script src="{{ url_for('static', filename='vendors/DateJS/build/date.js') }}"></script>
+  <!-- JQVMap -->
+  <script src="{{ url_for('static', filename='vendors/jqvmap/dist/jquery.vmap.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/jqvmap/dist/maps/jquery.vmap.world.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/jqvmap/examples/js/jquery.vmap.sampledata.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='build/js/login.js') }}"></script>
+{% endblock javascripts %}
+
+

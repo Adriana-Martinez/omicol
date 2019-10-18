@@ -1,0 +1,152 @@
+{% extends "base_site.html" %}
+
+{% block title %} Project Details {% endblock title %}
+
+{% block sidebar_class %}menu_fixed{% endblock sidebar_class %}
+
+{% block stylesheets %}
+  {{ super() }}
+{% endblock stylesheets %}
+
+{% block content %}
+  <div class="right_col" role="main">
+    <div class="">
+
+      <div class="clearfix"></div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="x_panel">
+            <div class="x_title">
+              <h3 style="color: #1ABB9C">Detalle del Proyecto</h3>
+              <ul class="nav navbar-right panel_toolbox">
+                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+              </ul>
+              <div class="clearfix"></div>
+            </div>
+
+            <div class="x_content">
+
+              <div class="col-md-8 col-sm-8 col-xs-12">
+
+                <ul class="stats-overview">
+                  <li>
+                    <span class="name"> Tiempo Estimado </span>
+                    <span class="value text-success"> 15 Días </span>
+                  </li>
+                  <li>
+                    <span class="name"> Número de Gestores </span>
+                    <span class="value text-success"> 15 </span>
+                  </li>
+                  <li class="hidden-phone">
+                    <span class="name"> Total Asignaciones </span>
+                    <span class="value text-success"> 20 </span>
+                  </li>
+                </ul>
+                <br />
+
+                    <div class="row">
+                      </div>
+                      <div class="clearfix"></div>
+
+                  <h4 style="color: #1ABB9C"><strong>Actividad Reciente </strong></h4>
+
+                  <!-- end of user messages -->
+                  <ul class="messages">
+                    <li>
+                      <div class="message_date">
+                        <h3 class="date text-info">08</h3>
+                        <p class="month">Oct</p>
+                      </div>
+                      <div class="message_wrapper">
+                        <h4 class="heading">Adriana Martínez</h4>
+                        <blockquote class="message">Adjunto captura de los puntos asignados</blockquote>
+                        <br />
+                        <p class="url">
+                          <span class="fs1 text-info" aria-hidden="true" data-icon=""></span>
+                          <a href="#"><i class="fa fa-paperclip"></i> Levantamiento_001.gps</a>
+                        </p>
+                      </div>
+                    </li>
+                    <li>
+                      
+                      <div class="message_date">
+                        <h3 class="date text-error">07</h3>
+                        <p class="month">Oct</p>
+                      </div>
+                      <div class="message_wrapper">
+                        <h4 class="heading">Oscar Villalobos</h4>
+                        <blockquote class="message">Anexo resultado de captura en campo.</blockquote>
+                        <br />
+                        <p class="url">
+                          <span class="fs1" aria-hidden="true" data-icon=""></span>
+                          <a href="#" data-original-title="">Levantamiento_002.gps</a>
+                        </p>
+                      </div>
+                    </li>
+                    <li>
+                      
+                      <div class="message_date">
+                        <h3 class="date text-info">05</h3>
+                        <p class="month">Oct</p>
+                      </div>
+                      <div class="message_wrapper">
+                        <h4 class="heading">Daniel Quijano</h4>
+                        <blockquote class="message">Envío captura de información, correspondeinte a los 10 puntos asignados.</blockquote>
+                        <br />
+                        <p class="url">
+                          <span class="fs1 text-info" aria-hidden="true" data-icon=""></span>
+                          <a href="#"><i class="fa fa-paperclip"></i> Levantamiento_003.gps </a>
+                        </p>
+                      </div>
+                    </li>
+                  </ul>
+                  <!-- end of user messages -->
+
+                </div>
+
+              <!-- start project-detail sidebar -->
+              <div class="col-md-4 col-sm-4 col-xs-12">
+
+                <section class="panel">
+
+                  <div class="x_title">
+                  <div class="panel-body">
+                    <h3 class="green"><i class="fa fa-paint-brush"></i>  Levantamiento Funza</h3>  
+
+                    <p>Breve descripción del proyecto.</p>
+                    <br />
+
+                    <div class="project_detail">
+
+                      <p class="title">Municipio</p>
+                      <p>Funza</p>
+                      <p class="title">Responsable</p>
+                      <p>David Prieto</p>
+                       <div class="x_title">
+                      <h4>Progreso</h4>
+                    </div>
+                      <span class="chart" data-percent="39">
+                                    <span class="percent"></span>
+                        </span>
+                    </div>
+                </section>
+
+              </div>
+              <!-- end project-detail sidebar -->
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
+
+{% block javascripts %}
+  {{ super() }}
+  <!-- ECharts -->
+  <script src="{{ url_for('static', filename='vendors/echarts/dist/echarts.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js') }}"></script>
+{% endblock javascripts %}
